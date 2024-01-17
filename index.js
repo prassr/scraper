@@ -2,17 +2,25 @@
 
 const puppeteer = require("puppeteer");
 const fs = require("fs")
+const process = require("process")
 
-async function run() {
+function displayHelp() {
+  console.log('Usage: node myprogram.js -playlist playlist_link');
+}
+
+
+
+async function run(plink) {
     const browser = await puppeteer.launch({headless: "new"});
     const page = await browser.newPage();
-    await page.goto("https://youtube.com/playlist?list=PLZ2ps__7DhBYt5yvXrYAjjWtf5O399Xea&si=YlhUnnpWZzWuJxuR")
+    await page.goto(plink)
 
     // await page.screenshot({path: "example.png", fullPage: true})
 
     // await page.screenshot({path: "example.pdf", format:"A4"})
     //
     const title = await page.evaluate(() => document.title);
+    console.log(title)
     // console.log(title)
     // const html = await page.content() A // html content
     // console.log(html)
@@ -28,6 +36,8 @@ async function run() {
 
     // get all links by classes
 
+    // const channel = await page.$("div.ytd-playlist-header-renderer")
+    // console.log(channel.innerText)
     const links = await page.$$("a#video-title.yt-simple-endpoint.ytd-playlist-video-renderer");
 
     const data = [];
@@ -49,5 +59,26 @@ async function run() {
 
 }
 
-run(); 
+
+function main() {
+    const args = process.argv.slice(2)
+    // Check for the presence of -playlist argument
+    const playlistIndex = args.indexOf('-playlist');
+
+    if (playlistIndex !== -1 && playlistIndex + 1 < args.length) {
+        const playlistLink = args[playlistIndex + 1];
+        if (playlistLink.length == 0) {
+            return
+        }
+        run(playlistLink);
+    // Add your logic to process the playlist link here
+    } else {
+    // Display help if -playlist argument is not found
+        displayHelp();
+    }
+
+}
+
+main()
+
 
