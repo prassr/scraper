@@ -5,7 +5,7 @@ const fs = require("fs")
 const process = require("process")
 
 function displayHelp() {
-  console.log('Usage: node myprogram.js -playlist playlist_link');
+  console.log('Usage: node index.js -playlist playlist_link');
 }
 
 
