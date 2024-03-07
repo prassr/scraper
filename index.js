@@ -5,7 +5,7 @@ const fs = require("fs")
 const process = require("process")
 
 function displayHelp() {
-  console.log('Usage: node index.js -playlist playlist_link');
+  console.log('Usage: node index.js --playlist playlist_link');
 }
 
 
@@ -46,7 +46,7 @@ async function run(plink) {
         const ttle = await page.evaluate(elem => elem.title, link)
         const href = await page.evaluate(elem => elem.href, link)
 
-        data.push(href.split("&")[0]+","+ttle);
+        data.push(href.split("&")[0]+", "+ttle);
         // console.log({
         //     title:title,
         //     href: href.split("&")[0]
@@ -63,7 +63,7 @@ async function run(plink) {
 function main() {
     const args = process.argv.slice(2)
     // Check for the presence of -playlist argument
-    const playlistIndex = args.indexOf('-playlist');
+    const playlistIndex = args.indexOf('--playlist');
 
     if (playlistIndex !== -1 && playlistIndex + 1 < args.length) {
         const playlistLink = args[playlistIndex + 1];
