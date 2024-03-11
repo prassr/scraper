@@ -57,7 +57,6 @@ async function run(sLink){
 
 		// Dispose context once it's no longer needed.
         text = ".bbp-reply-content"; // div tag class
-		await pg.waitForSelector(text); // wait for selector
 		element = await pg.$$eval(text, reply => reply.map(r=>r.textContent)); // select the div tag
         data["reply"] = new Array();
 
@@ -90,7 +89,6 @@ function main() {
     // Display help if -playlist argument is not found
         displayHelp();
     }
-
 }
 
 main();
