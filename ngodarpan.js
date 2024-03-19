@@ -7,7 +7,7 @@ const fs = require("fs")
 const process = require("process")
 
 function displayHelp() {
-  console.log('Usage: node wp_scraper.js --page pageLink');
+  console.log('Usage: node ngodarpan.js --page pageLink');
 }
 
 
